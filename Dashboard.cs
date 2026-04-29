@@ -1,36 +1,56 @@
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
 class Dashboard
 {
-    public void ShowKPIs()
-    {
-        Console.WriteLine("\n--- KPI Summary ---");
-        Console.WriteLine("Total Sales: $120,000");
-        Console.WriteLine("Total Staff: 48");
-        Console.WriteLine("Customers: 920");
-        Console.WriteLine("Monthly Revenue: $18,500");
-    }
+  
 
+public void ShowKPIs()
+{
+    var employees = DataStore.Employees;
+
+    Console.WriteLine("\n--- KPI Summary ---");
+    Console.WriteLine($"Total Staff: {employees.Count}");
+    Console.WriteLine($"Active Staff: {employees.Count(e => e.Status == "Active")}");
+    Console.WriteLine($"Departments: {employees.Select(e => e.Department).Distinct().Count()}");
+    Console.WriteLine($"Total Salaries: ${employees.Sum(e => e.Salary)}");
+}
     public void ShowDepartments()
     {
-        Console.WriteLine("\n--- Departments ---");
-        Console.WriteLine("Sales");
-        Console.WriteLine("HR");
-        Console.WriteLine("IT");
-        Console.WriteLine("Operations");
-    }
+ Console.WriteLine("\n--- Departments ---");
+       
+ foreach (var emp in DataStore.Employees)
+        {
+           Console.WriteLine(emp.Department); 
+        }
+        
+        
+      }
+public void SearchEmployee()
+{
+    Console.Write("\nEnter employee name: ");
+    string name = Console.ReadLine();
 
-    public void SearchEmployee()
-    {
-        Console.Write("\nEnter employee name: ");
-        string name = Console.ReadLine();
-        Console.WriteLine($"{name} found in Operations.");
-    }
+    var result = DataStore.Employees
+        .FirstOrDefault(e => e.Name.ToLower() == name.ToLower());
 
-    public void ExportReport()
+    if (result != null)
     {
-        Console.WriteLine("\nReport exported successfully.");
+        Console.WriteLine($"Name: {result.Name}");
+        Console.WriteLine($"Department: {result.Department}");
+        Console.WriteLine($"Salary: ${result.Salary}");
+        Console.WriteLine($"Status: {result.Status}");
     }
+    else
+    {
+        Console.WriteLine("Employee not found.");
+    }
+}
+public void ExportReport()
+{
+    ReportExporter.ExportEmployees();
+    Console.WriteLine("CSV report exported successfully.");
+}
 }
 
 
