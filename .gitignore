@@ -1,0 +1,40 @@
+# Build folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+
+# Rider
+.idea/
+
+# NuGet
+packages/
+*.nupkg
+
+# Test Results
+TestResults/
+
+# Publish output
+publish/
+
+# Temporary files
+*.tmp
+*.temp
+
+# SQLite / local db optional
+*.db
+*.sqlite
